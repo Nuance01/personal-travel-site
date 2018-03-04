@@ -3,14 +3,30 @@
 
   <head>
     <script src="http://www.webglearth.com/v2/api.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
   </head>
 
 
   <body onload="initialize()">
     <div class="container-fluid">
       <div id="earth_div" style="width:1600px;height:1200px;"></div>
+      <div id="yearButtons">
+        <button id="2010" type="button" class="btn btn-success btn-lg">2010</button>
+        <button id="2011" type="button" class="btn btn-success btn-lg">2011</button>
+        <button id="2012" type="button" class="btn btn-success btn-lg">2012</button>
+        <button id="2013" type="button" class="btn btn-success btn-lg">2013</button>
+        <button id="2014" type="button" class="btn btn-success btn-lg">2014</button>
+        <button id="2015" type="button" class="btn btn-success btn-lg">2015</button>
+        <button id="2016" type="button" class="btn btn-success btn-lg">2016</button>
+        <button id="2017" type="button" class="btn btn-success btn-lg">2017</button>
+        <button id="2018" type="button" class="btn btn-success btn-lg">2018</button>
+        <button id="ALL" type="button" class="btn btn-success btn-lg">ALL</button>       
+      </div>    
     </div>
 
     <script src="app.js"></script>
