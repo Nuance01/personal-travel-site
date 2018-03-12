@@ -25,75 +25,70 @@ function initialize() {
     window.earth = earth;
 }
 
+var torontoMarker = WE.marker([43.653226, -79.383184]).bindPopup("<b>Toronto, Canada</b>", 100),
+    tijuanaMarker = WE.marker([32.514947, -117.038247]).bindPopup("<b>Tijuana, Mexico</b>", 100),
+    londonMarker = WE.marker([51.507351, -0.127758]).bindPopup("<b>London, England</b>", 100),
+    weymouthMarker = WE.marker([50.6144, -2.4576]).bindPopup("<b>Weymouth, England</b>", 100),
+    parisMarker = WE.marker([48.856614, 2.352222]).bindPopup("<b>Paris, France</b>", 100),
+    corkMarker = WE.marker([51.896892, -8.486316]).bindPopup("<b>Cork, Ireland</b>", 100),
+    reykjavikMarker = WE.marker([64.126521, -21.817439]).bindPopup("<b>Reykjavik, Iceland</b>", 100),
+    klaksvikMarker = WE.marker([62.227192, -6.577906]).bindPopup("<b>Klaksvik, Faroe Islands</b>", 100),
+    tokyoMarker = WE.marker([35.6895, 139.6917]).bindPopup("<b>Tokyo, Japan</b>", 100),
+    kyotoMarker = WE.marker([35.0116, 135.7680]).bindPopup("<b>Kyoto, Japan</b>", 100),
+    osakaMarker = WE.marker([34.6937, 135.5022]).bindPopup("<b>Osaka, Japan</b>", 100),
+    seoulMarker = WE.marker([37.5665, 126.9780]).bindPopup("<b>Seoul, South Korea</b>", 100),
+    vancouverMarker = WE.marker([49.282729, -123.120738]).bindPopup("<b>Vancouver, Canada</b>", 100),
+    osloMarker = WE.marker([59.913869, 10.752245]).bindPopup("<b>Oslo, Norway</b>", 100),
+    stockholmMarker = WE.marker([59.329323, 18.068581]).bindPopup("<b>Stockholm, Sweden</b>", 100),
+    longyearbyenMarker = WE.marker([78.223172, 15.626723]).bindPopup("<b>Longyearbyen, Arctic Svalbard</b>", 100),
+    hongkongMarker = WE.marker([22.396428, 114.109497]).bindPopup("<b>Hong Kong, China</b>", 100),
+    macauMarker = WE.marker([22.1987, 113.5439]).bindPopup("<b>Macau, China</b>", 100),
+    taipeiMarker = WE.marker([25.032969, 121.565418]).bindPopup("<b>Taipei, Taiwan</b>", 100),
+    florenceMarker = WE.marker([43.769560, 11.255814]).bindPopup("<b>Florence, Italy</b>", 100),
+    romeMarker = WE.marker([41.902783, 12.496366]).bindPopup("<b>Rome, Italy</b>", 100),
+    naplesMarker = WE.marker([40.851775, 14.268124]).bindPopup("<b>Naples, Italy</b>", 100);
+    visibleMarkers = [];
+
 var travelInfo = {
     "2010": {
         displayText: "Canada",
         coordinates: [43.653226, -79.383184],
-        markers: {
-            toronto: [43.653226, -79.383184]
-        }
+        markers: [torontoMarker]
     },
     "2011": {
         displayText: "Tijuana",
         coordinates: [32.514947, -117.038247],
-        markers: {
-            tijuana: [32.514947, -117.038247]
-        }
+        markers: [tijuanaMarker]
     },
     "2012": {
         displayText: "England/France/Ireland/Iceland/Faroe Islands",
         coordinates: [61.892635, -6.911806],
-        markers: {
-            london: [51.507351, -0.127758],
-            paris: [48.856614, 2.352222],
-            cork: [51.896892, -8.486316],
-            reykjavik: [64.126521, -21.817439],
-            klaksvik: [62.227192, -6.577906]
-        }
+        markers: [londonMarker, weymouthMarker, parisMarker, corkMarker, reykjavikMarker, klaksvikMarker]
     },
     "2013": {
         displayText: "Japan/Korea",
         coordinates: [36.2048, 125.2529],
-        markers: {
-            tokyo: [35.6895, 139.6917], 
-            kyoto: [35.0116, 135.7680], 
-            osaka: [34.6937, 135.5022],
-            seoul: [37.5665, 126.9780]
-        }     
+        markers: [tokyoMarker, kyotoMarker, osakaMarker, seoulMarker]
     },
     "2014": {
         displayText: "Canada",
         coordinates: [49.282729, -123.120738],
-        markers: {
-            vancouver: [49.282729, -123.120738]
-
-        }
+        markers: [vancouverMarker]
     },
     "2015": {
         displayText: "Norway / Sweden / The Arctic",
         coordinates: [59.913869, 10.752245],
-        markers: {
-            oslo: [59.913869, 10.752245],
-            stockholm: [59.329323, 18.068581],
-            longyearbyen: [78.223172, 15.626723]
-        }
+        markers: [osloMarker, stockholmMarker, longyearbyenMarker]
     },
     "2016": {
         displayText: "Hong Kong / Taiwan",
         coordinates: [22.396428, 114.109497],
-        markers: {
-            hongkong: [22.396428, 114.109497],
-            taipei: [25.032969, 121.565418]
-        }
+        markers: [hongkongMarker, macauMarker, taipeiMarker]
     },
     "2017": {
         displayText: "Italy",
         coordinates: [41.871940, 12.567380],
-        markers: {
-            florence: [43.769560, 11.255814],
-            rome: [41.902783, 12.496366],
-            naples: [40.851775, 14.268124]
-        }
+        markers: [florenceMarker, romeMarker, naplesMarker]
     },
     "2018": {
         displayText: "?",
@@ -102,7 +97,9 @@ var travelInfo = {
 
         }
     },
-};
+}; 
+
+
 
 
 function travelTo(e) {
@@ -110,10 +107,65 @@ function travelTo(e) {
     var coordinates = travelInfo[year].coordinates;
     var markers = travelInfo[year].markers;
 
+    visibleMarkers.forEach(function(marker) {
+        marker.removeFrom(earth);
+    });
+
+    visibleMarkers = [];
+
     earth.panTo(coordinates);
 
-    for (var city in markers) {
-        WE.marker(markers[city]).addTo(earth);
-    }
+    markers.forEach(function(marker) {
+        marker.addTo(earth);
+        marker.openPopup();
+        visibleMarkers.push(marker);
+    });
 
 }
+
+function closeAllPopups() {
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
